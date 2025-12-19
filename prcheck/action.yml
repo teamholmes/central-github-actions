@@ -9,6 +9,9 @@ inputs:
   base-branch:
     description: "Base branch of the PR"
     required: false
+  actor:
+    description: "Actor who triggered the action"
+    required: false
 
 runs:
   using: "composite"
@@ -18,6 +21,7 @@ runs:
       env:
         PR_NUMBER: ${{ inputs.pr-number }}
         BASE_BRANCH: ${{ inputs.base-branch }}
+        ACTOR: ${{ inputs.actor }}
       run: |
         set -e
         chmod +x "${{ github.action_path }}/prcheck.sh"
