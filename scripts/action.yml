@@ -1,0 +1,24 @@
+name: "PR Check"
+description: "Runs central PR validation checks"
+author: "Your Org"
+
+inputs:
+  pr-number:
+    description: "Pull request number"
+    required: false
+  base-branch:
+    description: "Base branch of the PR"
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run prcheck.sh
+      shell: bash
+      env:
+        PR_NUMBER: ${{ inputs.pr-number }}
+        BASE_BRANCH: ${{ inputs.base-branch }}
+      run: |
+        set -e
+        chmod +x "${{ github.action_path }}/prcheck.sh"
+        "${{ github.action_path }}/prcheck.sh"
